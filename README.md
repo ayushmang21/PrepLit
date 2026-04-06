@@ -31,43 +31,43 @@ A quick visual tour of the PrepLit experience.
 
 ### 🏠 Landing Page
 
-![Landing Page](./docs/screenshots/home.png)
+![Landing Page](./frontend/docs/screenshots/home.png)
 
 Warm, clean, and focused on getting users into interview prep quickly.
 
 ### 📝 Sign Up
 
-![Sign Up](./docs/screenshots/signup.png)
+![Sign Up](./frontend/docs/screenshots/signup.png)
 
 New users can create an account and start building their prep workflow in seconds.
 
 ### 🔐 Login
 
-![Login](./docs/screenshots/login.png)
+![Login](./frontend/docs/screenshots/login.png)
 
 Returning users can jump right back into their saved interview sessions.
 
 ### 📊 Dashboard
 
-![Dashboard](./docs/screenshots/dashboard.png)
+![Dashboard](./frontend/docs/screenshots/dashboard.png)
 
 The dashboard acts as the control center for creating and revisiting prep sessions.
 
 ### 💬 Interview Session
 
-![Interview Session](./docs/screenshots/interview.png)
+![Interview Session](./frontend/docs/screenshots/interview.png)
 
 Each session groups generated questions into one focused review space.
 
 ### ✅ Answer View
 
-![Answer View](./docs/screenshots/answer.png)
+![Answer View](./frontend/docs/screenshots/answer.png)
 
 Users can review stronger, more structured responses for better interview delivery.
 
 ### 🧠 Generated Explanation View
 
-![Generated Explanation](./docs/screenshots/explain.png)
+![Generated Explanation](./frontend/docs/screenshots/explain.png)
 
 Explanations add depth so users understand concepts, not just memorized answers.
 
