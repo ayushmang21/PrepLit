@@ -1,5 +1,7 @@
 # PrepLit
 
+![PrepLit Cover](./frontend/public/image.png)
+
 ![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-7-646CFF?style=for-the-badge&logo=vite&logoColor=white)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
@@ -8,6 +10,11 @@
 ![Gemini](https://img.shields.io/badge/Gemini-AI-4285F4?style=for-the-badge)
 ![AI Powered](https://img.shields.io/badge/AI-Powered-F59E0B?style=for-the-badge)
 ![Interview Prep](https://img.shields.io/badge/Interview-Prep-111827?style=for-the-badge)
+
+## Live App
+
+- Frontend: https://prep-lit.vercel.app/
+- Backend API: https://preplit-server.onrender.com/
 
 PrepLit is a React + Vite frontend for an AI-powered interview preparation experience. It helps users move from scattered prep to a focused workflow with guided sessions, generated questions, polished explanations, and a clean interface built for real interview practice.
 
