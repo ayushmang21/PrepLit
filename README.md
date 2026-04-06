@@ -111,7 +111,7 @@ frontend/
 
 - Node.js 18+
 - npm
-- Backend API running locally on `http://localhost:9000`
+- Backend API running locally on `http://localhost:9000` or remotely on `https://preplit-server.onrender.com`
 
 ### Install
 
@@ -146,9 +146,32 @@ npm run preview
 
 ## API Notes 🔌
 
-The frontend currently talks to backend endpoints on `http://localhost:9000/api`, so the backend server should be running before testing authentication, session creation, or AI generation flows.
+The frontend reads its API base URL from `VITE_API_BASE_URL`. In this workspace it is set to `https://preplit-server.onrender.com/api`, and for local backend development you can switch it to `http://localhost:9000/api`.
 
 The Axios instance also attaches the bearer token from `localStorage`, which keeps protected requests authenticated after login.
+
+## Backend Deployment On Render
+
+Use a Render Web Service for the `backend` folder with these values:
+
+- Root Directory: `backend`
+- Build Command: `npm install`
+- Start Command: `npm start`
+
+Set these environment variables in Render:
+
+- `MONGODB_URI`
+- `JWT_SECRET`
+- `GEMINI_API_KEY`
+- `CLIENT_ORIGIN`
+
+Set `CLIENT_ORIGIN` to your deployed frontend URL, for example `https://your-frontend-app.vercel.app`.
+
+If you deploy the frontend separately, set:
+
+- `VITE_API_BASE_URL=https://preplit-server.onrender.com/api`
+
+The checked-in `backend/.env` in the local workspace contains real secrets. Rotate those values before going live and keep them only in Render or local secret storage.
 
 ## Screenshot Assets 🖼️
 
