@@ -5,14 +5,22 @@ import { GoogleGenAI } from "@google/genai";
 import Question from "../models/question-model.js";
 import Session from "../models/session-model.js";
 import {
+  getAiHealthSnapshot,
+  recordAiAttempt,
+  recordAiAttemptError,
+  recordAiRequestFailure,
+  recordAiRequestStarted,
+  recordAiSuccess,
+} from "../utils/ai-health-store.js";
+import {
   conceptExplainPrompt,
   questionAnswerPrompt,
 } from "../utils/prompts-util.js";
 
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
-const DEFAULT_QUESTION_MODELS = ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash"];
-const DEFAULT_EXPLANATION_MODELS = ["gemini-2.5-pro", "gemini-2.5-flash", "gemini-2.0-flash"];
+const DEFAULT_QUESTION_MODELS = ["gemini-3-flash-preview", "gemini-2.5-flash", "gemini-2.0-flash"];
+const DEFAULT_EXPLANATION_MODELS = ["gemini-3-flash-preview", "gemini-2.5-flash", "gemini-2.0-flash"];
 const QUESTION_RESPONSE_SCHEMA = {
   type: "array",
   items: {
@@ -130,10 +138,14 @@ const isQuotaError = (error) =>
   error?.message?.includes("RESOURCE_EXHAUSTED") ||
   error?.message?.includes("Quota exceeded");
 
-const generateWithFallback = async ({ models, contents, config }) => {
+const generateWithFallback = async ({ action, models, contents, config }) => {
   let lastError;
 
+  recordAiRequestStarted(action);
+
   for (const model of models) {
+    recordAiAttempt({ action, model });
+
     try {
       const response = await ai.models.generateContent({
         model,
@@ -141,16 +153,30 @@ const generateWithFallback = async ({ models, contents, config }) => {
         config,
       });
 
+      recordAiSuccess({
+        action,
+        model,
+        usageMetadata: response.usageMetadata,
+      });
+
       return { model, response };
     } catch (error) {
       lastError = error;
+      recordAiAttemptError({
+        action,
+        model,
+        error,
+        isQuotaError: isQuotaError(error),
+      });
 
       if (!isQuotaError(error)) {
+        recordAiRequestFailure({ action });
         throw error;
       }
     }
   }
 
+  recordAiRequestFailure({ action });
   throw lastError;
 };
 
@@ -210,6 +236,7 @@ export const generateInterviewQuestions = async (req, res) => {
     );
 
     const { response } = await generateWithFallback({
+      action: "generate_questions",
       models: getQuestionModels(),
       contents: prompt,
       config: {
@@ -265,6 +292,7 @@ export const generateConceptExplanation = async (req, res) => {
 
     const prompt = conceptExplainPrompt(question);
     const { response } = await generateWithFallback({
+      action: "generate_explanation",
       models: getExplanationModels(),
       contents: prompt,
       config: {
@@ -293,4 +321,17 @@ export const generateConceptExplanation = async (req, res) => {
       error: formatAiError(error, "generate an explanation"),
     });
   }
+};
+
+// @desc    Get AI health and usage snapshot
+// @route   GET /api/ai/health
+// @access  Private
+export const getAiHealth = async (req, res) => {
+  res.status(200).json({
+    success: true,
+    data: getAiHealthSnapshot({
+      questionModels: getQuestionModels(),
+      explanationModels: getExplanationModels(),
+    }),
+  });
 };

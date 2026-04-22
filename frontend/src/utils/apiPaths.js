@@ -11,6 +11,7 @@ export const API_PATHS = {
   AI: {
     GENERATE_QUESTIONS: "/ai/generate-questions",
     EXPLAIN: "/ai/generate-explanation",
+    HEALTH: "/ai/health",
   },
   QUESTION: {
     TOGGLE_PIN: "/questions", // usage: TOGGLE_PIN/:id/pin

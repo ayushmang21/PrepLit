@@ -1,5 +1,6 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 
+import AiHealth from "./pages/AiHealth";
 import Dashboard from "./pages/Dashboard";
 import InterviewPrep from "./pages/InterviewPrep";
 import LandingPage from "./pages/LandingPage";
@@ -39,6 +40,14 @@ const App = () => {
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/health"
+        element={
+          <ProtectedRoute>
+            <AiHealth />
           </ProtectedRoute>
         }
       />

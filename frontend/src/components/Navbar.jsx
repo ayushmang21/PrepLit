@@ -93,6 +93,9 @@ const Navbar = () => {
                 <NavLink to="/dashboard" className={linkClassName}>
                   Dashboard
                 </NavLink>
+                {/* <NavLink to="/health" className={linkClassName}>
+                  AI Health
+                </NavLink> */}
                 {isInterviewPage && (
                   <span className="hidden rounded-full bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-600 sm:inline-flex">
                     Interview Session
@@ -143,6 +146,9 @@ const Navbar = () => {
                 <>
                   <NavLink to="/dashboard" className={linkClassName}>
                     Dashboard
+                  </NavLink>
+                  <NavLink to="/health" className={linkClassName}>
+                    AI Health
                   </NavLink>
                   {isInterviewPage && (
                     <span className="rounded-full bg-orange-50 px-4 py-2 text-sm font-semibold text-orange-600">
