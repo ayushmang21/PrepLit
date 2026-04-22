@@ -27,7 +27,7 @@ const Login = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-yellow-100 via-white to-yellow-50">
+    <div className="min-h-screen bg-linear-to-br from-yellow-100 via-white to-yellow-50">
       <Navbar />
 
       <div className="flex min-h-[calc(100vh-76px)] items-center justify-center px-4 py-10">
